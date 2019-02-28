@@ -1,0 +1,22 @@
+#!/usr/bin/env python
+
+import sys
+
+from py_model_tools.converter_stl_to_obj import launcher
+
+if __name__ == "__main__":
+    """
+    To convert stl to obj+mtl files, you can use this script by doing:
+
+    ``rosrun model_tools stl_to_obj --input_stl_dir [path to a stl folder] --output_obj_dir [path to a obj folder]``
+    
+    or even
+
+    ``rosrun model_tools stl_to_obj -i [path to a stl folder] -o [path to a obj folder]``
+    
+    where:
+        - ``--input_stl_dir`` or ``-i`` is the folder containing the stl file(s) (required)
+        - ``--output_obj_dir`` or ``-i`` is the folder that will contain the obj file(s) (required)
+    """
+    launcher(sys.argv[1:])
+    sys.exit(0)
