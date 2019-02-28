@@ -12,11 +12,29 @@ if __name__ == "__main__":
     
     or even
 
-    ``rosrun model_tools stl_to_obj -i [path to a stl folder] -o [path to a obj folder]``
+    ``rosrun model_tools stl_to_obj -i [path to a stl folder] -o [local path to a obj folder]``
     
     where:
         - ``--input_stl_dir`` or ``-i`` is the folder containing the stl file(s) (required)
         - ``--output_obj_dir`` or ``-i`` is the folder that will contain the obj file(s) (required)
+
+
+    28/02/2019: Output of `` rosrun model_tools stl_to_obj -h ``
+    ``
+    usage: stl_to_obj [-h] -i input_stl_dir [-o output_obj_dir]
+
+    Convert stl files in obj+mtl
+
+    optional arguments:
+      -h, --help            show this help message and exit
+
+    required named arguments:
+      -i input_stl_dir, --input_stl_dir input_stl_dir
+                            local path to the stl folder you want to convert
+      -o output_obj_dir, --output_obj_dir output_obj_dir
+                            local path to the destination folder
+
+    ``
     """
     launcher(sys.argv[1:])
     sys.exit(0)

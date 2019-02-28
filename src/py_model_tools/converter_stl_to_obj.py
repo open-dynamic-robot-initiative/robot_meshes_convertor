@@ -11,7 +11,7 @@ import glob
 
 def run_process_and_wait(cmd):
     """
-    Create an instance of the geptto-gui
+    Run the command and wait until completion
     """
     process = subprocess.Popen(cmd, shell=True)
     process.wait()
@@ -20,6 +20,8 @@ def run_process_and_wait(cmd):
 def convert_stl_to_obj(stl_file, obj_file):
     """
     Prepare the instruction to convert 1 stl file into 1 obj+mtl
+    This runs the blender executable which will in turn parse a python file
+    which will then load the stl file and dump the obj file from it.
     """
     cmd = "blender --background --python "
     cmd += path.join( rospkg.RosPack().get_path("model_tools"),
@@ -33,6 +35,9 @@ def convert_stl_to_obj(stl_file, obj_file):
 
 
 def mkdir_recursive(path):
+    """
+    Create subdirectories recursively
+    """
     sub_path = os.path.dirname(path)
     if not os.path.isdir(sub_path):
         if sub_path != '':
@@ -42,6 +47,10 @@ def mkdir_recursive(path):
 
 
 def get_the_files(input_stl_dir, output_obj_dir):
+    """
+    Get the stl files by exploring the folder architecture.
+    Get the destination obj file paths
+    """
     stl_files = []
     for root, _, files in os.walk("."):
         for file in files:
@@ -102,17 +111,16 @@ def launcher(sys_args):
     Function to convert a bunch of stl files in obj+mtl files
     """
 
-    parser = argparse.ArgumentParser(description="Convert stl files in obj+mtl")
+    parser = argparse.ArgumentParser(description="Convert stl files in obj")
     requiredNamed = parser.add_argument_group('required named arguments')
     
     requiredNamed.add_argument(
       '-i', '--input_stl_dir', metavar='input_stl_dir', type=str,
       help='local path to the stl folder you want to convert', required=True)
 
-    parser.add_argument(
+    requiredNamed.add_argument(
       '-o', '--output_obj_dir', metavar='output_obj_dir',
-      type=str, help='local path to the destination folder, this has to be an '
-      'existing folder')
+      type=str, help='local path to the destination folder')
 
     args = parser.parse_args(sys_args)
 
